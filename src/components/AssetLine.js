@@ -5,8 +5,8 @@ import { AppContext } from "../App";
 const Label = ({ label, price }) => (
   <>
     <div className="d-flex justify-content-between">
-      <div>{label}</div>
-      <div>R$ {price.toFixed(2)}</div>
+      <div className="font-weight-bold">{label}</div>
+      <div className="font-weight-bold">R$ {price.toFixed(2)}</div>
     </div>
     <small className="text-muted">
       {label.includes("3") && "Ação ordinária"}
@@ -42,7 +42,7 @@ const Applied = ({ amount, price, totalApplied, onChangeAsset }) => {
       />
 
       <div className="text-right">
-        <div>R$ {(amount * price).toFixed(2)}</div>
+        <div className="font-weight-bold">R$ {(amount * price).toFixed(2)}</div>
         <small className="text-muted">{percent.toFixed()}%</small>
       </div>
     </div>
@@ -62,8 +62,10 @@ const Goal = ({ grade, price, totalBroker, totalGrade }) => {
       <div>{amount}</div>
 
       <div className="text-right">
-        <div>R$ {(amount * price).toFixed(2)}</div>
-        <small className="text-muted">{((grade / totalGrade) * 100).toFixed()}%</small>
+        <div className="font-weight-bold">R$ {(amount * price).toFixed(2)}</div>
+        <small className="text-muted">
+          {((grade / totalGrade) * 100).toFixed()}%
+        </small>
       </div>
     </div>
   );
@@ -88,13 +90,13 @@ export default function AssetLine({ asset }) {
 
   return (
     <div className="row">
-      <div className="col-2">
+      <div className="col-3">
         <Label label={asset.label} price={asset.price} />
       </div>
       <div className="col-1">
         <Grade grade={asset.grade} onChangeAsset={handleChangeAsset} />
       </div>
-      <div className="col-2">
+      <div className="col-3">
         <Applied
           amount={asset.amount}
           price={asset.price}
@@ -102,7 +104,7 @@ export default function AssetLine({ asset }) {
           onChangeAsset={handleChangeAsset}
         />
       </div>
-      <div className="col-2">
+      <div className="col-3">
         <Goal
           grade={asset.grade}
           price={asset.price}

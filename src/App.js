@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import TotalForm from "./components/TotalForm";
+import AssetForm from "./components/AssetForm";
 import AssetsTable from "./components/AssetsTable";
 import "./App.scss";
 
@@ -12,12 +14,6 @@ export default function App() {
   const [totalApplied, setTotalApplied] = useState(0);
   const [totalGrade, setTotalGrade] = useState(0);
   const [assets, setAssets] = useState([]);
-  const [asset, setAsset] = useState({
-    label: "PETR4",
-    price: 10,
-    grade: 10,
-    amount: 10
-  });
 
   useEffect(() => {
     setTotalApplied(
@@ -25,15 +21,6 @@ export default function App() {
     );
     setTotalGrade(assets.reduce((total, item) => total + item.grade, 0));
   }, [assets]);
-
-  function handleSubmitAsset(event) {
-    event.preventDefault();
-
-    if (assets.some(item => item.label === asset.label))
-      return toast.error("Esse ativo já está na planilha");
-
-    setAssets([...assets, asset]);
-  }
 
   return (
     <AppContext.Provider
@@ -49,49 +36,20 @@ export default function App() {
       }}
       className="container"
     >
-      <div className="row mb-5">
-        <input
-          type="text"
-          value={totalBroker}
-          onChange={e => setTotalBroker(e.target.value)}
-          className="col-2 form-control"
-        />
-        <input
-          type="text"
-          defaultValue={totalApplied}
-          className="col-2 form-control"
-        />
-        <input type="text" className="col-2 form-control" />
+      <div className="container">
+        <h1 className="my-5">A planilha de rebalanceamento do Pit Money!</h1>
+
+        <div className="row">
+          <div className="col-3">
+            <TotalForm />
+
+            <AssetForm />
+          </div>
+          <div className="col-9">
+            <AssetsTable />
+          </div>
+        </div>
       </div>
-
-      <form onSubmit={handleSubmitAsset} className="row mb-5">
-        <input
-          type="text"
-          value={asset.label}
-          onChange={e => setAsset({ ...asset, label: e.target.value })}
-          className="col-2 form-control"
-        />
-
-        <input
-          type="text"
-          value={asset.grade}
-          onChange={e => setAsset({ ...asset, grade: e.target.value })}
-          className="col-2 form-control"
-        />
-
-        <input
-          type="text"
-          value={asset.amount}
-          onChange={e => setAsset({ ...asset, amount: e.target.value })}
-          className="col-2 form-control"
-        />
-
-        <button type="submit" className="btn btn-primary">
-          Adicionar ativo
-        </button>
-      </form>
-
-      <AssetsTable assets={assets} />
 
       <ToastContainer
         position="bottom-left"

@@ -4,6 +4,7 @@ import { AppContext } from "../../App";
 
 export default function AssetLineApplied({ asset, onChangeAsset }) {
   const { totals } = useContext(AppContext);
+  const [amount, setAmount] = useState(asset.amount);
   const [percent, setPercent] = useState(0);
 
   function handleChangeAmount(event) {
@@ -20,8 +21,9 @@ export default function AssetLineApplied({ asset, onChangeAsset }) {
     <div className="d-flex justify-content-between">
       <input
         type="number"
-        value={asset.amount}
-        onChange={handleChangeAmount}
+        value={amount}
+        onChange={e => setAmount(e.target.value)}
+        onBlur={handleChangeAmount}
         className="form-control col-6 input-inline"
       />
 

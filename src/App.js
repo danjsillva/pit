@@ -1,36 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import TotalForm from "./components/TotalForm";
-import AssetForm from "./components/AssetForm";
-import AssetsTable from "./components/AssetsTable";
+import TotalForm from "./components/TotalForm/TotalForm";
+import AssetForm from "./components/AssetForm/AssetForm";
+import AssetsTable from "./components/AssetsTable/AssetsTable";
 import "./App.scss";
 
 export const AppContext = React.createContext({});
 
 export default function App() {
-  const [totalBroker, setTotalBroker] = useState(200);
-  const [totalApplied, setTotalApplied] = useState(0);
-  const [totalGrade, setTotalGrade] = useState(0);
+  const [totals, setTotals] = useState({
+    broker: 200,
+    applied: 0,
+    grade: 0
+  });
   const [assets, setAssets] = useState([]);
-
-  useEffect(() => {
-    setTotalApplied(
-      assets.reduce((total, item) => total + item.amount * item.price, 0)
-    );
-    setTotalGrade(assets.reduce((total, item) => total + item.grade, 0));
-  }, [assets]);
 
   return (
     <AppContext.Provider
       value={{
-        totalBroker,
-        setTotalBroker,
-        totalApplied,
-        setTotalApplied,
-        totalGrade,
-        setTotalGrade,
+        totals,
+        setTotals,
         assets,
         setAssets
       }}

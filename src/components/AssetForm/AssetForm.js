@@ -1,15 +1,16 @@
 import React, { useContext, useState } from "react";
 import { toast } from "react-toastify";
 
-import { AppContext } from "../App";
+import { AppContext } from "../../App";
 
 export default function() {
-  const { assets, setAssets } = useContext(AppContext);
+  const { totals, setTotals, assets, setAssets } = useContext(AppContext);
   const [asset, setAsset] = useState({
     label: "PETR4",
     price: 10,
     grade: 10,
-    amount: 10
+    appliedAmount: 10,
+    goalAmount: 0
   });
 
   function handleSubmitAsset(event) {
@@ -19,6 +20,19 @@ export default function() {
       return toast.error("Esse ativo já está na planilha");
 
     setAssets([...assets, asset]);
+    setTotals({
+      ...totals,
+      applied: [...assets, asset].reduce(
+        (total, item) =>
+          parseInt(total) +
+          parseInt(item.appliedAmount) * parseFloat(item.price),
+        0
+      ),
+      grade: [...assets, asset].reduce(
+        (total, item) => parseInt(total) + parseInt(item.grade),
+        0
+      )
+    });
   }
 
   return (
@@ -30,6 +44,7 @@ export default function() {
           value={asset.label}
           onChange={e => setAsset({ ...asset, label: e.target.value })}
           className="form-control"
+          autoFocus
         />
       </div>
 
@@ -45,8 +60,8 @@ export default function() {
       <div className="form-group">
         <input
           type="text"
-          value={asset.amount}
-          onChange={e => setAsset({ ...asset, amount: e.target.value })}
+          value={asset.appliedAmount}
+          onChange={e => setAsset({ ...asset, appliedAmount: e.target.value })}
           className="form-control"
         />
       </div>

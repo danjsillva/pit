@@ -8,14 +8,26 @@ import AssetLineGoal from "./AssetLineGoal";
 import { AppContext } from "../../App";
 
 export default function AssetLine({ asset }) {
-  const { assets, setAssets } = useContext(AppContext);
+  const { totals, setTotals, assets, setAssets } = useContext(AppContext);
 
   const handleChangeAsset = data => {
-    setAssets(
-      assets.map(item =>
-        item.label === asset.label ? { ...asset, ...data } : item
-      )
+    const newAssets = assets.map(item =>
+      item.label === asset.label ? { ...asset, ...data } : item
     );
+
+    setAssets(newAssets);
+    setTotals({
+      ...totals,
+      applied: newAssets.reduce(
+        (total, item) =>
+          parseInt(total) + parseInt(item.applied) * parseFloat(item.price),
+        0
+      ),
+      grade: newAssets.reduce(
+        (total, item) => parseInt(total) + parseInt(item.grade),
+        0
+      )
+    });
   };
 
   return (

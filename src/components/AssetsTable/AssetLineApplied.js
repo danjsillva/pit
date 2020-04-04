@@ -7,7 +7,7 @@ export default function AssetLineApplied({ asset, onChangeAsset }) {
   const [percent, setPercent] = useState(0);
 
   function handleChangeAmount(event) {
-    onChangeAsset({ appliedAmount: event.target.value });
+    onChangeAsset({ amount: event.target.value });
 
     setPercent(
       ((parseInt(event.target.value) * parseFloat(asset.price)) /
@@ -20,15 +20,14 @@ export default function AssetLineApplied({ asset, onChangeAsset }) {
     <div className="d-flex justify-content-between">
       <input
         type="number"
-        value={asset.appliedAmount}
+        value={asset.amount}
         onChange={handleChangeAmount}
         className="form-control col-6 input-inline"
       />
 
       <div className="text-right">
         <div className="font-weight-bold">
-          R${" "}
-          {(parseInt(asset.appliedAmount) * parseFloat(asset.price)).toFixed(2)}
+          R$ {(parseInt(asset.amount) * parseFloat(asset.price)).toFixed(2)}
         </div>
         <small className="text-muted">{percent.toFixed()}%</small>
       </div>

@@ -8,7 +8,7 @@ export default function() {
 
   return (
     <div className="row">
-      <div className="col-12 col-md-6 form-group">
+      <div className="col-12 col-lg-6 form-group">
         <input
           type="text"
           value={totals.broker}
@@ -17,9 +17,9 @@ export default function() {
         />
       </div>
 
-      <div className="col-12 col-md-6 form-group">
+      <div className="col-12 col-lg-6 form-group">
         <input
-          type="text"
+          type="number"
           value={totals.applied}
           readOnly
           className="form-control"

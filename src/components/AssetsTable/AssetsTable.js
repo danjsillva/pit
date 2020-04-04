@@ -24,9 +24,7 @@ export default function AssetsTable() {
       </div>
 
       {assets &&
-        assets.map(asset => (
-          <AssetLine key={asset.label} asset={asset} onAssetChange={() => {}} />
-        ))}
+        assets.map(asset => <AssetLine key={asset.label} asset={asset} />)}
     </div>
   );
 }

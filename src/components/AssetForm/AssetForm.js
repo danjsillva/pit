@@ -9,8 +9,7 @@ export default function() {
     label: "PETR4",
     price: 10,
     grade: 10,
-    appliedAmount: 10,
-    goalAmount: 0
+    amount: 10
   });
 
   function handleSubmitAsset(event) {
@@ -19,16 +18,17 @@ export default function() {
     if (assets.some(item => item.label === asset.label))
       return toast.error("Esse ativo já está na planilha");
 
-    setAssets([...assets, asset]);
+    const newAssets = [...assets, asset];
+
+    setAssets(newAssets);
     setTotals({
       ...totals,
-      applied: [...assets, asset].reduce(
+      applied: newAssets.reduce(
         (total, item) =>
-          parseInt(total) +
-          parseInt(item.appliedAmount) * parseFloat(item.price),
+          parseInt(total) + parseInt(item.amount) * parseFloat(item.price),
         0
       ),
-      grade: [...assets, asset].reduce(
+      grade: newAssets.reduce(
         (total, item) => parseInt(total) + parseInt(item.grade),
         0
       )
@@ -60,8 +60,8 @@ export default function() {
       <div className="form-group">
         <input
           type="text"
-          value={asset.appliedAmount}
-          onChange={e => setAsset({ ...asset, appliedAmount: e.target.value })}
+          value={asset.amount}
+          onChange={e => setAsset({ ...asset, amount: e.target.value })}
           className="form-control"
         />
       </div>

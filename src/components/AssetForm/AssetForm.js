@@ -36,9 +36,8 @@ export default function() {
   }
 
   return (
-    <form onSubmit={handleSubmitAsset} className="mt-5">
-      <div className="form-group">
-        <label>Adicionar ativo</label>
+    <form onSubmit={handleSubmitAsset} className="row mt-5">
+      <div className=" col-12 form-group">
         <input
           type="text"
           value={asset.label}
@@ -48,7 +47,7 @@ export default function() {
         />
       </div>
 
-      <div className="form-group">
+      <div className="col-12 col-lg-6 form-group">
         <input
           type="text"
           value={asset.grade}
@@ -57,7 +56,7 @@ export default function() {
         />
       </div>
 
-      <div className="form-group">
+      <div className="col-12 col-lg-6 form-group">
         <input
           type="text"
           value={asset.amount}
@@ -66,7 +65,7 @@ export default function() {
         />
       </div>
 
-      <div className="form-group">
+      <div className=" col-12 form-group">
         <button type="submit" className="btn btn-primary">
           Adicionar ativo
         </button>

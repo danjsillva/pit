@@ -1,20 +1,10 @@
-import React, { useContext, useState } from "react";
-
-import { AppContext } from "../../App";
+import React, { useState } from "react";
 
 export default function AssetLineApplied({ asset, onChangeAsset }) {
-  const { totals } = useContext(AppContext);
   const [amount, setAmount] = useState(asset.amount);
-  const [percent, setPercent] = useState(0);
 
   function handleChangeAmount(event) {
     onChangeAsset({ amount: event.target.value });
-
-    setPercent(
-      ((parseInt(event.target.value) * parseFloat(asset.price)) /
-        parseFloat(totals.applied)) *
-        100
-    );
   }
 
   return (
@@ -28,10 +18,8 @@ export default function AssetLineApplied({ asset, onChangeAsset }) {
       />
 
       <div className="text-right">
-        <div className="font-weight-bold">
-          R$ {(parseInt(asset.amount) * parseFloat(asset.price)).toFixed(2)}
-        </div>
-        <small className="text-muted">{percent.toFixed()}%</small>
+        <div className="font-weight-bold">R$ {asset.applied}</div>
+        <small className="text-muted">{asset.percent}%</small>
       </div>
     </div>
   );

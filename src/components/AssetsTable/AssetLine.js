@@ -31,7 +31,7 @@ export default function AssetLine({ asset }) {
   };
 
   return (
-    <div className="row">
+    <div className="row py-3">
       <div className="col-3">
         <AssetLineLabel asset={asset} />
       </div>
@@ -44,7 +44,7 @@ export default function AssetLine({ asset }) {
       <div className="col-3">
         <AssetLineGoal asset={asset} />
       </div>
-      <div className="col-2">COMPRAR</div>
+      <div className="col-2">{asset.status}</div>
     </div>
   );
 }

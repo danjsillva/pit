@@ -4,7 +4,7 @@ export default function AssetLineLabel({ asset }) {
   return (
     <div className="">
       <div className="d-flex justify-content-between">
-        <div className="font-weight-bold">{asset.label}</div>
+        <div className="font-weight-bold">{asset.label} </div>
         <div className="font-weight-bold">R$ {asset.price.toFixed(2)}</div>
       </div>
       <small className="text-muted">
